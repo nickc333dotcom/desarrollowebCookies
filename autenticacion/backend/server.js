@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const cookieParser = require('cookie-parser'); // Importar cookie-parser
+const cookieParser = require('cookie-parser'); //Importar cookie-parser
 require('dotenv').config();
 
 const authRoutes = require('./routes/auth');
@@ -8,7 +8,7 @@ const authRoutes = require('./routes/auth');
 const app = express();
 
 // Middlewares
-// 2. CORS ahora debe permitir credenciales
+// CORS ahora debe permitir credenciales
 app.use(cors({
   origin: 'http://localhost:5500', 
   credentials: true
@@ -20,7 +20,6 @@ app.use(cookieParser()); // Middleware para leer cookies
 // Rutas
 app.use('/api/auth', authRoutes);
 
-// Ruta protegida de ejemplo
 app.get('/api/protected', authenticateToken, (req, res) => {
   res.json({ 
     message: 'Acceso concedido a contenido protegido',
@@ -29,9 +28,8 @@ app.get('/api/protected', authenticateToken, (req, res) => {
   });
 });
 
-// 4.  Middleware de autenticación para usar COOKIES
+// Middleware de autenticación para usar COOKIES
 function authenticateToken(req, res, next) {
-  
   const token = req.cookies.access_token; 
 
   if (!token) {
@@ -51,7 +49,7 @@ function authenticateToken(req, res, next) {
 // Ruta de bienvenida
 app.get('/', (req, res) => {
   res.json({ 
-    message: 'API de Autenticación',
+    message: '🔐 API de Autenticación',
     endpoints: {
       register: 'POST /api/auth/register',
       login: 'POST /api/auth/login',
